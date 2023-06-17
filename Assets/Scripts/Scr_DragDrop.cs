@@ -6,9 +6,10 @@ public class Scr_DragDrop : MonoBehaviour
 {
     bool draging;
     GameObject DragObject;
+    GameObject Canvas;
     void Start()
     {
-        
+        Canvas = GameObject.FindWithTag("Canvas");
     }
 
     // Update is called once per frame
@@ -47,8 +48,19 @@ public class Scr_DragDrop : MonoBehaviour
         if (hit.collider != null)
         {
             
-            DragObject = hit.collider.gameObject;
-            draging = true;
+            if (hit.collider.gameObject.GetComponent<ScrCard>())
+            {               
+                StartDrag(hit.collider.gameObject.GetComponent<ScrCard>().GetDragActor());
+            }
+            
         }
+    }
+
+
+    void StartDrag(GameObject a)
+    {
+        DragObject = a;
+        //DragObject.transform.SetParent(Canvas.transform);
+        draging = true;
     }
 }

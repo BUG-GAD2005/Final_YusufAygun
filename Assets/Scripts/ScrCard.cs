@@ -13,10 +13,14 @@ public class ScrCard : MonoBehaviour
     [SerializeField] TMP_Text GemPriceText;
     [SerializeField] GameObject GoldPriceObject;
     [SerializeField] GameObject GemPriceObject;
+
+    GameObject Canvas;
+    public GameObject SpawnObject;
     void Start()
     {
         SetCardAcordingToCardInfo();
         IsPriceOnlyOne();// if gold price or gem price is 0 removes it from render and centers the other price
+        Canvas = GameObject.FindWithTag("Canvas");
     }
 
     // Update is called once per frame
@@ -31,6 +35,16 @@ public class ScrCard : MonoBehaviour
         GoldPriceText.text = CardInfo.GoldPrice;
         GemPriceText.text = CardInfo.GemPrice;
         BuildingImage.sprite = CardInfo.BuildingImage;
+    }
+
+    public GameObject GetDragActor()
+    {
+        GameObject DragActor=Instantiate(SpawnObject);
+        DragActor.transform.SetParent(Canvas.transform);
+        DragActor.transform.localScale = SpawnObject.transform.localScale;
+
+        DragActor.GetComponent<Scr_Building>().SetValues(CardInfo);
+        return DragActor;
     }
 
 

@@ -16,3 +16,10 @@ MonoBehaviour:
   SpawnBuilding: {fileID: 0}
   GoldPrice: 1
   GemPrice: 2
+  GridSize:
+  - {x: 0, y: 0}
+  XSizeMultiply: 1
+  YSizeMultiply: 2
+  GoldRevanueForTime: 1
+  GemRevanueForTime: 3
+  RevanueTime: 20

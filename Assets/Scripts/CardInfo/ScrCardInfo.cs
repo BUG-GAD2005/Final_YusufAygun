@@ -14,5 +14,18 @@ public class ScrCardInfo : ScriptableObject
 
     public string GemPrice;
 
+    public Vector2Int[] GridSize;
+
+    public float XSizeMultiply = 1;
+
+    public float YSizeMultiply = 1;
+
+    public int GoldRevanueForTime;
+
+    public int GemRevanueForTime;
+
+    public float RevanueTime;
+    
+
 
 }
