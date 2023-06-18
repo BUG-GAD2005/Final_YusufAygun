@@ -38,6 +38,24 @@ public class Scr_Grid : MonoBehaviour
         
     }
 
+    public bool CanPlace(Vector2Int Orgin,Vector2Int[] SizeOfOther)
+    {
+        foreach(Vector2Int block in SizeOfOther)
+        {
+            if(!TheGrid[block.x + Orgin.x, block.y + Orgin.y].IsEmpty)
+                return false;
+        }
+        return true;
+    }
+    bool IsEmpty(Vector2Int CheckPos)
+    {
+        if(CheckPos.x<0||CheckPos.x>TotalRows|| CheckPos.y < 0 || CheckPos.y > TotalColumns)
+        {
+            return false;
+        }
+
+        return TheGrid[CheckPos.x, CheckPos.y].IsEmpty;
+    }
 
     void CreateGrid()
     {
@@ -52,6 +70,7 @@ public class Scr_Grid : MonoBehaviour
                 
                 TheGrid[i, k].IsEmpty = true;
                 TheGrid[i, k].CellActor = Instantiate(OriginalCellObject);
+                TheGrid[i, k].CellActor.GetComponent<Scr_GridCell>().GridPos=new Vector2Int(i,k);
 
                 TheGrid[i, k].CellActor.transform.localPosition = new Vector3(StartPos.x + (CellGap * i), StartPos.y + (CellGap * k), StartPos.z);
                 TheGrid[i, k].CellActor.transform.SetParent(GridParent.transform);

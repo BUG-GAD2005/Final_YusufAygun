@@ -15,6 +15,10 @@ public class Scr_Building : MonoBehaviour
     public float RevanueTime;
     public Vector2Int Origin›nMap;
 
+    Color Renkred ;
+    Color RenkWhite;
+    Color RenkGreen;
+
     public Image image;
     void Start()
     {
@@ -43,5 +47,32 @@ public class Scr_Building : MonoBehaviour
         ScaleImage.y *= cardinfos2.YSizeMultiply;
 
         image.transform.localScale = ScaleImage;
+        SetColors();
+        
+        
+    }
+
+    public void ColorChangeToRed()
+    {
+        image.color = Renkred;
+    }
+
+    public void ColorChangeToWhite()
+    {
+        image.color = RenkWhite;
+    }
+    public void ColorChangeToGreen()
+    {
+        image.color = RenkGreen;
+    }
+    void SetColors() 
+    {
+        Renkred = Color.red;
+        Renkred.a = 0.5f;
+
+        RenkGreen = Color.green;
+        RenkGreen.a = 0.5f;
+
+        RenkWhite = Color.white;
     }
 }
