@@ -25,7 +25,8 @@ public class ScrCardInfo : ScriptableObject
     public int GemRevanueForTime;
 
     public float RevanueTime;
-    
+
+    public float BuildingTime;
 
 
 }

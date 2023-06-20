@@ -13,6 +13,8 @@ public class Scr_DragDrop : MonoBehaviour
     Vector2Int GridPos; // GridCells rank in the main grid
     Vector2Int[] GridSize;
 
+    bool CanBePlacedOnCell;
+
     Scr_Building  BuildingScript;
     void Start()
     {
@@ -39,10 +41,12 @@ public class Scr_DragDrop : MonoBehaviour
             if (GridScript.CanPlace(GridPos, BuildingScript.GridSize))
             {
                 BuildingScript.ColorChangeToGreen();
+                CanBePlacedOnCell = true;
             }
             else
             {
                 BuildingScript.ColorChangeToRed();
+                CanBePlacedOnCell = false;
             }           
         
         }
@@ -52,7 +56,7 @@ public class Scr_DragDrop : MonoBehaviour
             pos.z = DragObject.transform.position.z;
             DragObject.transform.position = pos;
             BuildingScript.ColorChangeToWhite();
-
+            CanBePlacedOnCell= false;
         }
 
     }
@@ -64,8 +68,21 @@ public class Scr_DragDrop : MonoBehaviour
 
     public void TryToDrop()
     {
-        draging = false;
-        
+        if (draging)
+        {
+            draging = false;
+            if (CanBePlacedOnCell)
+            {
+                BuildingScript.StarConstruction(GridPos);
+                DragObject = null;
+                BuildingScript = null;
+            }
+            else
+            {
+                Destroy(DragObject);
+            }
+
+        }     
     }
 
     void FindObjectUnderMouse()

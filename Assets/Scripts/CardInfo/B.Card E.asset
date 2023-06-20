@@ -23,3 +23,4 @@ MonoBehaviour:
   GoldRevanueForTime: 1
   GemRevanueForTime: 3
   RevanueTime: 20
+  BuildingTime: 5

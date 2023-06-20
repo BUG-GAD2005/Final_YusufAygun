@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-struct CellStruct
+public struct CellStruct
 {
     public Vector2Int pos;
     public bool IsEmpty;
     public GameObject CellActor;
+    public Scr_GridCell CellScript;
 }
 
 public class Scr_Grid : MonoBehaviour
@@ -15,7 +16,7 @@ public class Scr_Grid : MonoBehaviour
     [SerializeField] GameObject GridParent;
     [SerializeField] GameObject OriginalCellObject;
 
-    CellStruct[,] TheGrid;
+    public CellStruct[,] TheGrid;
 
     int TotalRows = 10; 
     int TotalColumns = 10;
@@ -76,8 +77,13 @@ public class Scr_Grid : MonoBehaviour
                 TheGrid[i, k].CellActor.transform.SetParent(GridParent.transform);
                 //TheGrid[i, k].CellActor.transform.parent=this.transform;   
                 TheGrid[i, k].CellActor.transform.localScale = OriginalCellObject.transform.localScale;
+                TheGrid[i, k].CellScript = TheGrid[i, k].CellActor.GetComponent<Scr_GridCell>();
+                
+
                 //TheGrid[i, k].CellActor.GetComponent<GridCellScript>().CellNum = new Vector2Int(k, i);
+
             }
         }
+
     }
 }
