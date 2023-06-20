@@ -20,9 +20,12 @@ public class Scr_Building : MonoBehaviour
     Color RenkGreen;
 
     public Image image;
+
+    [SerializeField] GameObject Bar;
+    [SerializeField] Image ProgresBar;
     void Start()
     {
-        
+        ProgresBar.fillAmount = 0.5f;
     }
 
     // Update is called once per frame
