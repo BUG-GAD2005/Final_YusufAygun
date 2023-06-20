@@ -38,6 +38,8 @@ public class Scr_Building : MonoBehaviour
     {
         
         GridScript=GameObject.FindWithTag("LogicRunner").GetComponent<Scr_Grid>();
+
+        Debug.Log(S_Money.Bank.Gold);
     }
 
     // Update is called once per frame

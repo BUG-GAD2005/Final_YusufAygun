@@ -16,6 +16,10 @@ public class ScrCard : MonoBehaviour
 
     GameObject Canvas;
     public GameObject SpawnObject;
+
+    public bool HasMoney;
+    int goldprice;
+    int gemprice;
     void Start()
     {
         SetCardAcordingToCardInfo();
@@ -26,15 +30,51 @@ public class ScrCard : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        CheckHasMonay();
     }
 
+    void CheckHasMonay()
+    {
+        if (S_Money.Bank.HasEnoughMoney(goldprice, gemprice))
+        {
+            if (!HasMoney)
+            {
+                HasMoney = true;
+                ChangeImageAccordingToMoney();
+                BuildingImage.color= Color.white;
+            }
+            BuildingImage.color = Color.white;
+        }
+        else
+        {
+            if(HasMoney)
+            {
+                HasMoney = false;
+                ChangeImageAccordingToMoney();
+                BuildingImage.color= Color.red;
+            }
+            BuildingImage.color = Color.red;
+        }
+    }
 
+    void ChangeImageAccordingToMoney()
+    {
+        if (HasMoney)
+        {
+            Debug.Log("HasMoney");
+        }
+        else Debug.Log("NoMoney");
+
+    }
     void SetCardAcordingToCardInfo()  
     {
         GoldPriceText.text = CardInfo.GoldPrice;
         GemPriceText.text = CardInfo.GemPrice;
         BuildingImage.sprite = CardInfo.BuildingImage;
+        goldprice = int.Parse(CardInfo.GoldPrice);
+        gemprice=int.Parse(CardInfo.GemPrice);
+        Invoke("ChangeImageAccordingToMoney", 0.2f);
+
     }
 
     public GameObject GetDragActor()

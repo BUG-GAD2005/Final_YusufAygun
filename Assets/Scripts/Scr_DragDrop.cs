@@ -93,8 +93,9 @@ public class Scr_DragDrop : MonoBehaviour
         {
             
             if (hit.collider.gameObject.GetComponent<ScrCard>())
-            {               
-                StartDrag(hit.collider.gameObject.GetComponent<ScrCard>().GetDragActor());
+            {        
+                if(hit.collider.gameObject.GetComponent<ScrCard>().HasMoney)
+                    StartDrag(hit.collider.gameObject.GetComponent<ScrCard>().GetDragActor());
             }
             
         }
