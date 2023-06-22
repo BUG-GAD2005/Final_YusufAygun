@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 
 public enum BinaState { Nothing, Construction, Working};
@@ -19,6 +20,9 @@ public class Scr_Building : MonoBehaviour
     public float CurrentTime;
     public Vector2Int OriginÝnMap;
 
+    [SerializeField] GameObject FlyOriginalObject;
+    [SerializeField] float FlyTextPosAdd;
+
     BinaState State=BinaState.Nothing;
 
     Scr_Grid GridScript;
@@ -32,6 +36,7 @@ public class Scr_Building : MonoBehaviour
 
     [SerializeField] GameObject Bar;
     [SerializeField] Image ProgresBar;
+    [SerializeField] TMP_Text CountDown;
 
     Vector2Int GridPlace;
     void Start()
@@ -55,12 +60,30 @@ public class Scr_Building : MonoBehaviour
             else
             {
                 SetProgresBarFloat(CurrentTime / BuildingTime);
+                int x = Convert.ToInt32(BuildingTime) - Convert.ToInt32(CurrentTime);
+                CountDown.text = x.ToString();
+            }
+        }
+        else if (State == BinaState.Working)
+        {
+            CurrentTime += Time.deltaTime;
+            if (CurrentTime > RevanueTime)
+            {
+                WorkCompleated();
+            }
+            else
+            {
+                SetProgresBarFloat(CurrentTime / RevanueTime);
+                int x = Convert.ToInt32(RevanueTime) - Convert.ToInt32(CurrentTime) + 1;
+                CountDown.text = x.ToString();
+
             }
         }
     }
 
     void ConstructionCompleated()
     {
+        CreateFlyingText();
         State = BinaState.Working;
         CurrentTime = 0;
         ColorChangeToWhite();
@@ -71,6 +94,12 @@ public class Scr_Building : MonoBehaviour
             GridScript.TheGrid[Konum.x, Konum.y].CellScript.TurnImageBuildingCompleated();
         }
 
+    }
+
+    void WorkCompleated()
+    {
+        CurrentTime = 0;
+        CreateFlyingText() ;
     }
     void SetProgresBarFloat(float value)
     {
@@ -96,6 +125,45 @@ public class Scr_Building : MonoBehaviour
         SetColors();
 
         
+    }
+
+    public void CreateFlyingText()
+    {
+       
+        //S_FlyingText FlyTextScript = FlyText.GetComponent<S_FlyingText>(); 
+
+        if(State== BinaState.Construction)
+        {
+            if (GoldPrice != 0)
+                CreateFlyText(true).SetGold(-GoldPrice);
+
+            if (GemPrice != 0)
+                CreateFlyText(false).SetGem(-GemPrice);
+
+        }
+        else if (State == BinaState.Working)
+        {
+            if (GoldRevanueForTime != 0)
+                CreateFlyText(true).SetGold(GoldRevanueForTime);
+
+            if (GemRevanueForTime != 0)
+                CreateFlyText(false).SetGem(GemRevanueForTime);
+
+        }
+    }
+
+    S_FlyingText CreateFlyText(bool IsGold)
+    {
+        GameObject FlyText = Instantiate(FlyOriginalObject);
+        FlyText.transform.SetParent(transform.parent.transform);
+        Vector3 pos = transform.localPosition;
+        if (IsGold)
+            pos.x -= FlyTextPosAdd;
+        else
+            pos.x += FlyTextPosAdd;
+        FlyText.transform.localPosition = pos;
+        FlyText.transform.localScale = new Vector3(1, 1, 1);
+        return FlyText.GetComponent<S_FlyingText>();
     }
 
     public void StarConstruction(Vector2Int Origin)

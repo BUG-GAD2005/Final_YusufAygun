@@ -6,6 +6,7 @@ TagManager:
   tags:
   - LogicRunner
   - Canvas
+  - CuzdanPlace
   layers:
   - Default
   - TransparentFX
