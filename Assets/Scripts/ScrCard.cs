@@ -61,7 +61,7 @@ public class ScrCard : MonoBehaviour
     {
         if (HasMoney)
         {
-            Debug.Log("HasMoney");
+            //Debug.Log("HasMoney");
         }
         else Debug.Log("NoMoney");
 

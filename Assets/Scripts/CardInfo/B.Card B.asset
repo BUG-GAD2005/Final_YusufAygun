@@ -14,14 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BuildingImage: {fileID: 21300000, guid: fd198b784ef553d469cdf8c14088d93a, type: 3}
   SpawnBuilding: {fileID: 0}
-  GoldPrice: 1
-  GemPrice: 2
+  GoldPrice: 2
+  GemPrice: 4
   GridSize:
   - {x: 0, y: 0}
   XSizeMultiply: 2.5
   YSizeMultiply: 2.5
-  GoldRevanueForTime: 2
-  GemRevanueForTime: 0
+  GoldRevanueForTime: 0
+  GemRevanueForTime: 2
   RevanueTime: 15
   BuildingTime: 5
   SaveIdentity: 2

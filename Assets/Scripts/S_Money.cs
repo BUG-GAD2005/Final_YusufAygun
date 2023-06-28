@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using JetBrains.Annotations;
 
 public class S_Money : MonoBehaviour
 {
@@ -12,8 +13,8 @@ public class S_Money : MonoBehaviour
 
     public int Gem;
 
-    [SerializeField] int StartGold;
-    [SerializeField] int StartGem;
+    public int StartGold;
+    public int StartGem;
 
     [SerializeField] TMP_Text GoldText;
     [SerializeField] TMP_Text GemText;
@@ -30,7 +31,7 @@ public class S_Money : MonoBehaviour
             Bank = this;
         }
 
-        DontDestroyOnLoad(this);
+        //DontDestroyOnLoad(this);
 
         Gold = StartGold;       // burda paralarýý atýyoz
         Gem = StartGem;
@@ -71,6 +72,13 @@ public class S_Money : MonoBehaviour
     {
         Gold -= a;
         Gem -= b;
+        AdjustGoldGemText();
+    }
+
+    public void SetMoneyFromLoad(int g, int g2)
+    {
+        Gold = g;
+        Gem = g2;
         AdjustGoldGemText();
     }
 }

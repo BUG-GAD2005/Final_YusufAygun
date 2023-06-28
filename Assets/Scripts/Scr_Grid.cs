@@ -33,14 +33,13 @@ public class Scr_Grid : MonoBehaviour
         StartPos=OriginalCellObject.transform.position;
 
         CreateGrid();
-        /*LoadGame();
-        Invoke("SaveGame", 10);   Test the save system
-        Invoke("LoadGame", 11);*/
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+        Debug.Log("go");
     }
 
     public bool CanPlace(Vector2Int Orgin,Vector2Int[] SizeOfOther)
@@ -91,16 +90,7 @@ public class Scr_Grid : MonoBehaviour
 
     }
 
-    public void SaveGame()
-    {
-        S_SaveSystem.SaveGame(S_Money.Bank.Gold, S_Money.Bank.Gem, TheGrid);
-        Debug.Log("Saved");
-    }
+    
 
-    public void LoadGame()
-    {
-        S_GameData data = S_SaveSystem.LoadGame();
-        //Debug.Log(data.Gold + "   " + data.Gem);
-        Debug.Log(data.map.Count);
-    }
+    
 }

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BuildingImage: {fileID: 21300000, guid: c992ab9336c29b34d8f91a18e87e1326, type: 3}
   SpawnBuilding: {fileID: 0}
-  GoldPrice: 1
+  GoldPrice: 4
   GemPrice: 2
   GridSize:
   - {x: 0, y: 0}

@@ -18,7 +18,7 @@ public class Scr_Building : MonoBehaviour
     public float RevanueTime;
     public float BuildingTime;
     public float CurrentTime;
-    public Vector2Int Origin›nMap;
+    //public Vector2Int Origin›nMap;
     public ScrCardInfo CardInfo;
 
     [SerializeField] GameObject FlyOriginalObject;
@@ -39,13 +39,13 @@ public class Scr_Building : MonoBehaviour
     [SerializeField] Image ProgresBar;
     [SerializeField] TMP_Text CountDown;
 
-    Vector2Int GridPlace;
+    public Vector2Int GridPlace;
     void Start()
     {
         
         GridScript=GameObject.FindWithTag("LogicRunner").GetComponent<Scr_Grid>();
 
-        Debug.Log(S_Money.Bank.Gold);
+        Debug.Log(S_Money.Bank.Gold + "Money ");
     }
 
     // Update is called once per frame
@@ -84,7 +84,6 @@ public class Scr_Building : MonoBehaviour
 
     void ConstructionCompleated()
     {
-        CreateFlyingText();
         State = BinaState.Working;
         CurrentTime = 0;
         ColorChangeToWhite();
@@ -126,6 +125,31 @@ public class Scr_Building : MonoBehaviour
         SetColors();
 
         CardInfo=cardinfos2;
+    }
+    
+    public void GridImageChange()
+    {
+        GridScript = GameObject.FindWithTag("LogicRunner").GetComponent<Scr_Grid>();
+        if (State == BinaState.Working)
+        {
+            foreach (Vector2Int block in GridSize)      //changes the images on the grid map
+            {
+                Vector2Int Konum = new Vector2Int(block.x + GridPlace.x, block.y + GridPlace.y);
+                GridScript.TheGrid[Konum.x, Konum.y].CellScript.TurnImageBuildingCompleated();
+                GridScript.TheGrid[Konum.x, Konum.y].IsEmpty = false;
+            }
+
+        }
+        else
+        {
+            foreach (Vector2Int block in GridSize)      //changes the images on the grid map
+            {
+                Vector2Int Konum = new Vector2Int(block.x + GridPlace.x, block.y + GridPlace.y);
+                GridScript.TheGrid[Konum.x, Konum.y].CellScript.TurnImageConstruct();
+                GridScript.TheGrid[Konum.x, Konum.y].IsEmpty = false;
+            }
+            ColorChangeDisapear();
+        }
     }
 
     public void CreateFlyingText()
@@ -188,6 +212,7 @@ public class Scr_Building : MonoBehaviour
 
         State = BinaState.Construction;
 
+        CreateFlyingText();
     }
 
     public void ColorChangeToRed()
