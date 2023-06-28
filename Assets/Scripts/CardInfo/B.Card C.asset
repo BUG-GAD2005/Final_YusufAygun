@@ -29,3 +29,4 @@ MonoBehaviour:
   GemRevanueForTime: 2
   RevanueTime: 15
   BuildingTime: 5
+  SaveIdentity: 3

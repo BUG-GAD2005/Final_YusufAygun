@@ -19,11 +19,12 @@ public class Scr_Building : MonoBehaviour
     public float BuildingTime;
     public float CurrentTime;
     public Vector2Int Origin›nMap;
+    public ScrCardInfo CardInfo;
 
     [SerializeField] GameObject FlyOriginalObject;
     [SerializeField] float FlyTextPosAdd;
 
-    BinaState State=BinaState.Nothing;
+    public BinaState State=BinaState.Nothing;
 
     Scr_Grid GridScript;
 
@@ -124,7 +125,7 @@ public class Scr_Building : MonoBehaviour
         image.transform.localScale = ScaleImage;
         SetColors();
 
-        
+        CardInfo=cardinfos2;
     }
 
     public void CreateFlyingText()
@@ -168,6 +169,8 @@ public class Scr_Building : MonoBehaviour
 
     public void StarConstruction(Vector2Int Origin)
     {
+        GridScript.TheGrid[Origin.x, Origin.y].OriginOfBuilding = true;
+        GridScript.TheGrid[Origin.x, Origin.y].BuildingScript = this;
         Debug.Log("Aaaaaa");
         GridPlace = Origin;
 

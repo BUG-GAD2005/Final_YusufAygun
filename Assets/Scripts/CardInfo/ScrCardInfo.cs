@@ -28,5 +28,7 @@ public class ScrCardInfo : ScriptableObject
 
     public float BuildingTime;
 
+    public float SaveIdentity;
+
 
 }
